@@ -24,7 +24,8 @@ public class Main {
             } else if (choice == 2) {
                 showList(expenses);             // 渡す側は簡潔に、受け側は型付で受け取る
             } else if (choice == 3) {
-                showTotal(expenses);
+                int total = calculateTotal(expenses);  // 変更点
+                System.out.println("Total: " + total); // 戻り値で帰り、メイン処理の中で出力する形式に
             } else if (choice == 0) {
                 System.out.println("Bye!");
                 break;
@@ -55,12 +56,12 @@ public class Main {
         }
     }
 
-    static void showTotal(List<Expense> expenses) {
+    static int calculateTotal(List<Expense> expenses) {  // 返り値の型がint
         int total = 0;
         for (Expense e : expenses) {
             total += e.amount;
         }
-        System.out.println("Total: " + total);
+        return total;           // return文で返り値を指定
     }
 }
 
