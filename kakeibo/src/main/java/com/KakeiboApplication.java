@@ -15,6 +15,6 @@ public class KakeiboApplication {
 
     @GetMapping("/")
     public String hello() {
-        return "Hello 家計簿;
+        return "Hello 家計簿";
     }
 }
