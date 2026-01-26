@@ -20,7 +20,7 @@ public class ExpenseController {
 
     @GetMapping("/total")
     public int total() {
-        return expenseService.getTotal();
+        return expenseService.calculateTotal();
     }
 
     @GetMapping("/list")

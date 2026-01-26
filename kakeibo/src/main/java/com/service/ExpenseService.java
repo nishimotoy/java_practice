@@ -16,7 +16,7 @@ public class ExpenseService {
         expenses.add(expense);
     }
 
-    public int getTotal() {
+    public int calculateTotal() {
         int total = 0;
         for (Expense e : expenses) {
             total += e.getAmount();
