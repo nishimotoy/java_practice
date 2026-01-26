@@ -1,15 +1,13 @@
 package com.example.kakeibo.controller;
 
-import java.util.HashMap;
+import com.example.kakeibo.model.Expense;
+import com.example.kakeibo.service.ExpenseService;
+
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.kakeibo.model.Expense;
-import com.example.kakeibo.service.ExpenseService;
 
 @RestController
 @RequestMapping("/api/expenses")
@@ -21,16 +19,14 @@ public class ExpenseApiController {
         this.expenseService = expenseService;
     }
 
+    @GetMapping("/total")
+    public int getTotalExpense() {
+        return expenseService.calculateTotal();
+    }
+
     @GetMapping
-    public List<Expense> list() {
+    public List<Expense> getAll() {
         return expenseService.getAll();
     }
 
-    @GetMapping("/total")
-    public Map<String, Integer> total() {
-        Map<String, Integer> result = new HashMap<>();
-        result.put("total", expenseService.calculateTotal());
-        return result;
-    }
-    
 }
