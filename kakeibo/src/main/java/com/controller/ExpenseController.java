@@ -34,5 +34,21 @@ public class ExpenseController {
         expenseService.addExpense(expense);
         return "added: " + amount;
     }
+
+    @GetMapping("/form")
+    public String form() {
+        return """
+            <html>
+            <body>
+                <h1>Kakeibo</h1>
+                <form action="/add" method="get">
+                    Amount: <input type="number" name="amount" />
+                    <button type="submit">Add</button>
+                </form>
+            </body>
+            </html>
+            """;
+    }
+
     
 }
