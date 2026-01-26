@@ -1,6 +1,8 @@
 package com.example.kakeibo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +27,10 @@ public class ExpenseApiController {
     }
 
     @GetMapping("/total")
-    public int total() {
-        return expenseService.calculateTotal();
+    public Map<String, Integer> total() {
+        Map<String, Integer> result = new HashMap<>();
+        result.put("total", expenseService.calculateTotal());
+        return result;
     }
+    
 }
