@@ -27,6 +27,17 @@ public class ExpenseService {
     public List<Expense> getAll() {
         return expenses;
     }
+
+    public List<Expense> search(String category) {
+        if (category == null) {
+            return expenses;
+        }
+
+        return expenses.stream()
+                .filter(e -> category.equals(e.getCategory()))
+                .toList();
+    }
+
 }
 
 
