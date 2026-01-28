@@ -5,6 +5,9 @@ public class Expense {
     private String category;
     private int amount;
 
+    public Expense() {
+    }
+
     public Expense(int amount) {
         this.amount = amount;
     }
@@ -16,6 +19,10 @@ public class Expense {
 
     public int getAmount() {
         return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public String getCategory() {

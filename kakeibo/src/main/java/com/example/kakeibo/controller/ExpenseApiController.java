@@ -5,6 +5,7 @@ import com.example.kakeibo.service.ExpenseService;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,5 +38,20 @@ public class ExpenseApiController {
         return expenseService.search(category);
     }
 
+    @PostMapping
+    public List<Expense> addExpense(@RequestBody Expense expense) {
+        System.out.println("category=" + expense.getCategory());
+        System.out.println("amount=" + expense.getAmount());
+        expenseService.addExpense(expense);
+        return expenseService.getAll();
+    }
+
+    /* 
+    @PostMapping("/api/expenses")
+    public void create(@RequestBody String body) {
+        System.out.println("==== RAW BODY ====");
+        System.out.println(body);
+    }
+    */
 
 }
