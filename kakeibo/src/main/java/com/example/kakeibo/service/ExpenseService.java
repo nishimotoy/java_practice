@@ -12,6 +12,11 @@ public class ExpenseService {
 
     private final List<Expense> expenses = new ArrayList<>();
 
+    public ExpenseService() {
+        expenses.add(new Expense("FOOD", 1200));
+        expenses.add(new Expense("TRANSPORT", 800));
+    }
+    
     public void addExpense(Expense expense) {
         expenses.add(expense);
     }

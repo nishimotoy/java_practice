@@ -2,17 +2,21 @@ package com.example.kakeibo.model;
 
 public class Expense {
 
+    private String category;
     private int amount;
 
     public Expense(int amount) {
         this.amount = amount;
     }
 
+    public Expense(String category, int amount) {
+        this.category = category;
+        this.amount = amount;
+    }
+
     public int getAmount() {
         return amount;
     }
-
-    private String category;
 
     public String getCategory() {
         return category;
@@ -23,3 +27,4 @@ public class Expense {
     }
 
 }
+
