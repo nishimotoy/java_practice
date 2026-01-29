@@ -3,9 +3,13 @@ package com.example.kakeibo.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.kakeibo.model.Expense;
+
+import com.example.kakeibo.exception.ExpenseNotFoundException;
 
 @Service
 public class ExpenseService {
@@ -41,6 +45,28 @@ public class ExpenseService {
         return expenses.stream()
                 .filter(e -> category.equals(e.getCategory()))
                 .toList();
+    }
+
+    public Expense getById(int id) {
+        if (id < 0 || id >= expenses.size()) {
+            throw new ExpenseNotFoundException(id);
+        }
+        return expenses.get(id);
+    }
+
+    public void deleteById(int id) {
+        if (id < 0 || id >= expenses.size()) {
+            throw new ExpenseNotFoundException(id);
+        }
+        expenses.remove(id);
+    }
+
+    public Expense update(int id, Expense newExpense) {
+        if (id < 0 || id >= expenses.size()) {
+            throw new ExpenseNotFoundException(id);
+        }
+        expenses.set(id, newExpense);
+        return newExpense;
     }
 
 }

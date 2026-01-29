@@ -40,8 +40,6 @@ public class ExpenseApiController {
 
     @PostMapping
     public List<Expense> addExpense(@RequestBody Expense expense) {
-        System.out.println("category=" + expense.getCategory());
-        System.out.println("amount=" + expense.getAmount());
         expenseService.addExpense(expense);
         return expenseService.getAll();
     }
@@ -53,5 +51,23 @@ public class ExpenseApiController {
         System.out.println(body);
     }
     */
+
+    @GetMapping("/{id}")
+    public Expense getById(@PathVariable int id) {
+        return expenseService.getById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteExpense(@PathVariable int id) {
+        expenseService.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Expense updateExpense(
+            @PathVariable int id,
+            @RequestBody Expense expense) {
+
+        return expenseService.update(id, expense);
+    }
 
 }
