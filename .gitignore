@@ -1,2 +1,23 @@
-*.class
+# Maven
 /target/
+
+# Java
+*.class
+
+# IDE
+/.idea/
+/*.iml
+/.classpath
+/.project
+/.settings/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local DB (H2 etc.)
+*.mv.db
+*.trace.db
