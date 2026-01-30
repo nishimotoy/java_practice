@@ -1,15 +1,11 @@
 package com.example.kakeibo.controller;
 
-import com.example.kakeibo.model.Expense;
-import com.example.kakeibo.service.ExpenseService;
-
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+
+import com.example.kakeibo.entity.Expense;
+import com.example.kakeibo.service.ExpenseService;
 
 @RestController
 @RequestMapping("/api/expenses")
@@ -21,53 +17,35 @@ public class ExpenseApiController {
         this.expenseService = expenseService;
     }
 
-    @GetMapping("/total")
-    public int getTotalExpense() {
-        return expenseService.calculateTotal();
-    }
-
+    // 全件取得
     @GetMapping
     public List<Expense> getAll() {
-        return expenseService.getAll();
+        return expenseService.findAll();
     }
 
-    @GetMapping("/search")
-    public List<Expense> search(
-            @RequestParam(required = false) String category) {
-
-        return expenseService.search(category);
-    }
-
-    @PostMapping
-    public List<Expense> addExpense(@RequestBody Expense expense) {
-        expenseService.addExpense(expense);
-        return expenseService.getAll();
-    }
-
-    /* 
-    @PostMapping("/api/expenses")
-    public void create(@RequestBody String body) {
-        System.out.println("==== RAW BODY ====");
-        System.out.println(body);
-    }
-    */
-
+    // ID指定取得
     @GetMapping("/{id}")
-    public Expense getById(@PathVariable int id) {
-        return expenseService.getById(id);
+    public Expense getById(@PathVariable Long id) {
+        return expenseService.findById(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteExpense(@PathVariable int id) {
-        expenseService.deleteById(id);
+    // 新規作成
+    @PostMapping
+    public Expense create(@RequestBody Expense expense) {
+        return expenseService.save(expense);
     }
 
+    // 更新
     @PutMapping("/{id}")
-    public Expense updateExpense(
-            @PathVariable int id,
+    public Expense update(
+            @PathVariable Long id,
             @RequestBody Expense expense) {
-
         return expenseService.update(id, expense);
     }
 
+    // 削除
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        expenseService.delete(id);
+    }
 }

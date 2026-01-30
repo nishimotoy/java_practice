@@ -1,74 +1,49 @@
 package com.example.kakeibo.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
-import com.example.kakeibo.model.Expense;
-
+import com.example.kakeibo.entity.Expense;
 import com.example.kakeibo.exception.ExpenseNotFoundException;
+import com.example.kakeibo.repository.ExpenseRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ExpenseService {
 
-    private final List<Expense> expenses = new ArrayList<>();
+    private final ExpenseRepository expenseRepository;
 
-    public ExpenseService() {
-        expenses.add(new Expense("FOOD", 1200));
-        expenses.add(new Expense("TRANSPORT", 800));
-    }
-    
-    public void addExpense(Expense expense) {
-        expenses.add(expense);
+    public ExpenseService(ExpenseRepository expenseRepository) {
+        this.expenseRepository = expenseRepository;
     }
 
-    public int calculateTotal() {
-        int total = 0;
-        for (Expense e : expenses) {
-            total += e.getAmount();
-        }
-        return total;
+    // 全件取得
+    public List<Expense> findAll() {
+        return expenseRepository.findAll();
     }
 
-    public List<Expense> getAll() {
-        return expenses;
+    // ID指定取得
+    public Expense findById(Long id) {
+        return expenseRepository.findById(id)
+                .orElseThrow(() -> new ExpenseNotFoundException(id));
     }
 
-    public List<Expense> search(String category) {
-        if (category == null) {
-            return expenses;
-        }
-
-        return expenses.stream()
-                .filter(e -> category.equals(e.getCategory()))
-                .toList();
+    // 新規追加
+    public Expense save(Expense expense) {
+        return expenseRepository.save(expense);
     }
 
-    public Expense getById(int id) {
-        if (id < 0 || id >= expenses.size()) {
-            throw new ExpenseNotFoundException(id);
-        }
-        return expenses.get(id);
+    // 更新
+    public Expense update(Long id, Expense updatedExpense) {
+        Expense expense = findById(id);
+        expense.setDate(updatedExpense.getDate());
+        expense.setCategory(updatedExpense.getCategory());
+        expense.setAmount(updatedExpense.getAmount());
+        expense.setMemo(updatedExpense.getMemo());
+        return expenseRepository.save(expense);
     }
 
-    public void deleteById(int id) {
-        if (id < 0 || id >= expenses.size()) {
-            throw new ExpenseNotFoundException(id);
-        }
-        expenses.remove(id);
+    // 削除
+    public void delete(Long id) {
+        expenseRepository.deleteById(id);
     }
-
-    public Expense update(int id, Expense newExpense) {
-        if (id < 0 || id >= expenses.size()) {
-            throw new ExpenseNotFoundException(id);
-        }
-        expenses.set(id, newExpense);
-        return newExpense;
-    }
-
 }
-
-
