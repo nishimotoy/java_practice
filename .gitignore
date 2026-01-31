@@ -1,15 +1,15 @@
 # Maven
-/target/
+**/target/
 
 # Java
 *.class
 
 # IDE
-/.idea/
-/*.iml
-/.classpath
-/.project
-/.settings/
+**/.idea/
+**/*.iml
+**/.classpath
+**/.project
+**/.settings/
 
 # Logs
 *.log
