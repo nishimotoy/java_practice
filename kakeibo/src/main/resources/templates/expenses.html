@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kakeibo</title>
+</head>
+<body>
+<h1>Expense List</h1>
+
+<table border="1">
+    <tr>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Amount</th>
+        <th>Memo</th>
+    </tr>
+    <tr th:each="e : ${expenses}">
+        <td th:text="${e.date}"></td>
+        <td th:text="${e.category}"></td>
+        <td th:text="${e.amount}"></td>
+        <td th:text="${e.memo}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
