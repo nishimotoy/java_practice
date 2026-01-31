@@ -5,8 +5,36 @@
     <title>Kakeibo</title>
 </head>
 <body>
+
 <h1>Expense List</h1>
 
+<!-- 追加フォーム -->
+<h2>Add Expense</h2>
+<form action="/expenses" method="post">
+    <div>
+        Date:
+        <input type="date" name="date">
+    </div>
+    <div>
+        Category:
+        <input type="text" name="category">
+    </div>
+    <div>
+        Amount:
+        <input type="number" name="amount">
+    </div>
+    <div>
+        Memo:
+        <input type="text" name="memo">
+    </div>
+    <div>
+        <button type="submit">Add</button>
+    </div>
+</form>
+
+<hr>
+
+<!-- 一覧表示 -->
 <table border="1">
     <tr>
         <th>Date</th>
