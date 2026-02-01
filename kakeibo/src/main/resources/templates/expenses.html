@@ -10,22 +10,30 @@
 
 <!-- 追加フォーム -->
 <h2>Add Expense</h2>
-<form action="/expenses" method="post">
+<form th:action="@{/expenses}" method="post" th:object="${expense}">
+
+    <div th:if="${#fields.hasErrors('*')}" style="color:red;">
+        <ul>
+            <li th:each="err : ${#fields.errors('*')}"
+                th:text="${err}"></li>
+        </ul>
+    </div>
+
     <div>
         Date:
-        <input type="date" name="date">
+        <input type="date" th:field="*{date}">
     </div>
     <div>
         Category:
-        <input type="text" name="category">
+        <input type="text" th:field="*{category}">
     </div>
     <div>
         Amount:
-        <input type="number" name="amount">
+        <input type="number" th:field="*{amount}">
     </div>
     <div>
         Memo:
-        <input type="text" name="memo">
+        <input type="text" th:field="*{memo}">
     </div>
     <div>
         <button type="submit">Add</button>
@@ -41,12 +49,24 @@
         <th>Category</th>
         <th>Amount</th>
         <th>Memo</th>
+        <th>Actions</th>
     </tr>
     <tr th:each="e : ${expenses}">
         <td th:text="${e.date}"></td>
         <td th:text="${e.category}"></td>
         <td th:text="${e.amount}"></td>
         <td th:text="${e.memo}"></td>
+        <td>
+        <a th:href="@{/expenses/{id}/edit(id=${e.id})}">Edit</a>
+        |
+        <form th:action="@{/expenses/{id}/delete(id=${e.id})}"
+            method="post"
+            style="display:inline"
+            onsubmit="return confirm('本当に削除しますか？');">
+            <button type="submit">Delete</button>
+        </form>
+</td>
+
     </tr>
 </table>
 

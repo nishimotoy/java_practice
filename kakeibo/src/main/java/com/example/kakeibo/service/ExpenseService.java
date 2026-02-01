@@ -16,25 +16,29 @@ public class ExpenseService {
         this.expenseRepository = expenseRepository;
     }
 
-    // 一覧取得
     public List<Expense> findAll() {
         return expenseRepository.findAll();
     }
 
-    // 追加
-    public void add(LocalDate date, String category, int amount, String memo) {
-        Expense expense = new Expense();
-        expense.setDate(date);
-        expense.setCategory(category);
-        expense.setAmount(amount);
-        expense.setMemo(memo);
-
-        expenseRepository.save(expense);
-    }
-
-    // ID指定取得
     public Expense findById(Long id) {
         return expenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Expense not found: " + id));
+    }
+
+    public Expense save(Expense expense) {
+        return expenseRepository.save(expense);
+    }
+
+    public void delete(Long id) {
+        expenseRepository.deleteById(id);
+    }
+
+    public Expense update(Long id, Expense updatedExpense) {
+        Expense expense = findById(id);
+        expense.setDate(updatedExpense.getDate());
+        expense.setCategory(updatedExpense.getCategory());
+        expense.setAmount(updatedExpense.getAmount());
+        expense.setMemo(updatedExpense.getMemo());
+        return expenseRepository.save(expense);
     }
 }
