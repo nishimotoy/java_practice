@@ -10,35 +10,12 @@
 
 <!-- 追加フォーム -->
 <h2>Add Expense</h2>
-<form th:action="@{/expenses}" method="post" th:object="${expense}">
 
-    <div th:if="${#fields.hasErrors('*')}" style="color:red;">
-        <ul>
-            <li th:each="err : ${#fields.errors('*')}"
-                th:text="${err}"></li>
-        </ul>
-    </div>
-
-    <div>
-        Date:
-        <input type="date" th:field="*{date}">
-    </div>
-    <div>
-        Category:
-        <input type="text" th:field="*{category}">
-    </div>
-    <div>
-        Amount:
-        <input type="number" th:field="*{amount}">
-    </div>
-    <div>
-        Memo:
-        <input type="text" th:field="*{memo}">
-    </div>
-    <div>
-        <button type="submit">Add</button>
-    </div>
-</form>
+<div th:replace="fragments/expense-form :: expenseForm(
+        @{/expenses},
+        'Add'
+    )">
+</div>
 
 <hr>
 

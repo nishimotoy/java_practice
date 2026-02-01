@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="expenseForm(action, buttonLabel)">
+    <form th:action="${action}" method="post" th:object="${expense}">
+        <div>
+            Date:
+            <input type="date" th:field="*{date}">
+        </div>
+        <div>
+            Category:
+            <input type="text" th:field="*{category}">
+        </div>
+        <div>
+            Amount:
+            <input type="number" th:field="*{amount}">
+        </div>
+        <div>
+            Memo:
+            <input type="text" th:field="*{memo}">
+        </div>
+        <div>
+            <button type="submit" th:text="${buttonLabel}"></button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

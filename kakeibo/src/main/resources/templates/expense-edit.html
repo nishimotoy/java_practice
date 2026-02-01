@@ -8,36 +8,13 @@
 
 <h1>Edit Expense</h1>
 
-<form th:action="@{/expenses/{id}(id=${expense.id})}"
-      method="post"
-      th:object="${expense}">
+<div th:replace="fragments/expense-form :: expenseForm(
+        @{/expenses/{id}(id=${expense.id})},
+        'Update'
+    )">
+</div>
 
-    <div>
-        Date:
-        <input type="date" th:field="*{date}">
-    </div>
-
-    <div>
-        Category:
-        <input type="text" th:field="*{category}">
-    </div>
-
-    <div>
-        Amount:
-        <input type="number" th:field="*{amount}">
-    </div>
-
-    <div>
-        Memo:
-        <input type="text" th:field="*{memo}">
-    </div>
-
-    <button type="submit">Update</button>
-</form>
-
-<p>
-    <a th:href="@{/expenses}">Back to list</a>
-</p>
+<a href="/expenses">Back</a>
 
 </body>
 </html>

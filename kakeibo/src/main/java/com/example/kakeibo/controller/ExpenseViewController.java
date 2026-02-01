@@ -60,8 +60,12 @@ public class ExpenseViewController {
     @PostMapping("/expenses/{id}")
     public String update(
             @PathVariable Long id,
-            Expense expense
+            @Valid Expense expense,
+            BindingResult result
     ) {
+        if (result.hasErrors()) {
+            return "expense-edit";
+        }
         expenseService.update(id, expense);
         return "redirect:/expenses";
     }
