@@ -3,25 +3,46 @@
 <body>
 
 <div th:fragment="expenseForm(action, buttonLabel)">
-    <form th:action="${action}" method="post" th:object="${expense}">
+    <form th:action="${mode == 'add'}
+            ? @{/expenses}
+            : @{/expenses/{id}(id=${expense.id})}"
+        method="post"
+        th:object="${expense}">
+
         <div>
             Date:
             <input type="date" th:field="*{date}">
+            <div th:if="${#fields.hasErrors('date')}"
+                th:errors="*{date}">
+            </div>
         </div>
+
         <div>
             Category:
             <input type="text" th:field="*{category}">
+            <div th:if="${#fields.hasErrors('category')}"
+                th:errors="*{category}">
+            </div>
         </div>
+
         <div>
             Amount:
             <input type="number" th:field="*{amount}">
+            <div th:if="${#fields.hasErrors('amount')}"
+                th:errors="*{amount}">
+            </div>
         </div>
+
         <div>
             Memo:
             <input type="text" th:field="*{memo}">
+            <!-- memo は任意なのでエラー表示なし -->
         </div>
+
         <div>
-            <button type="submit" th:text="${buttonLabel}"></button>
+            <button type="submit"
+                    th:text="${mode == 'add'} ? 'Add' : 'Update'">
+            </button>
         </div>
     </form>
 </div>

@@ -11,10 +11,10 @@
 <!-- 追加フォーム -->
 <h2>Add Expense</h2>
 
-<div th:replace="fragments/expense-form :: expenseForm(
+<div th:replace="~{fragments/expense-form :: expenseForm(
         @{/expenses},
         'Add'
-    )">
+    )}">
 </div>
 
 <hr>

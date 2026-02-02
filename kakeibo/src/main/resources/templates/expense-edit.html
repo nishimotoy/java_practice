@@ -8,10 +8,10 @@
 
 <h1>Edit Expense</h1>
 
-<div th:replace="fragments/expense-form :: expenseForm(
+<div th:replace="~{fragments/expense-form :: expenseForm(
         @{/expenses/{id}(id=${expense.id})},
         'Update'
-    )">
+    )}">
 </div>
 
 <a href="/expenses">Back</a>
